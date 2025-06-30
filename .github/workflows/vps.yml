@@ -1,0 +1,27 @@
+name: Start Nexus Node
+
+on:
+  workflow_dispatch:
+
+jobs:
+  start-node:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: (Optional) Setup PATH from .bashrc
+      run: |
+        echo "export PATH=$PATH:$HOME/.local/bin" >> ~/.bashrc
+        source ~/.bashrc || true
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y curl
+
+    - name: Run Nexus Node
+      run: |
+        echo "Starting Nexus Node..."
+        nexus-network start --node-id 9725616
